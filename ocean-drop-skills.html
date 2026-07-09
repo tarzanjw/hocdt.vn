@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ocean Drop · Hồ sơ kỹ năng thành viên</title>
+<style>
+  :root{
+    --bg:#04121f; --bg2:#07203a; --card:#0b2c47; --card2:#0e3555;
+    --line:#1c4a6e; --txt:#e8f4fb; --sub:#8fb8d4; --accent:#35c4e8;
+    --accent2:#7be3c0; --gold:#ffd166;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:radial-gradient(1200px 600px at 70% -10%, #0d3a5c 0%, var(--bg) 55%);
+    color:var(--txt); min-height:100vh; padding-bottom:60px;
+  }
+  header{padding:44px 20px 8px; text-align:center;}
+  .club{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--accent2);font-weight:700}
+  h1{font-size:clamp(26px,4.5vw,40px);margin:6px 0 4px;font-weight:800}
+  h1 .drop{color:var(--accent)}
+  .subtitle{color:var(--sub);font-size:14px}
+  .wave{max-width:900px;margin:14px auto 26px;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent)}
+
+  .grid{max-width:1060px;margin:0 auto;padding:0 18px;
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+  .card{
+    background:linear-gradient(160deg,var(--card),var(--card2));
+    border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;
+    cursor:pointer;transition:transform .15s ease, box-shadow .15s ease, border-color .15s;
+    position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--accent);
+    box-shadow:0 10px 30px rgba(53,196,232,.15)}
+  .rank{position:absolute;top:12px;right:14px;font-size:12px;color:var(--sub)}
+  .badge{position:absolute;top:0;right:0;background:var(--gold);color:#3a2c00;
+    font-size:11px;font-weight:800;padding:4px 12px;border-radius:0 14px 0 12px}
+  .name{font-size:19px;font-weight:800;margin-bottom:10px}
+  .score-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+  .score{font-size:34px;font-weight:800;color:var(--accent)}
+  .score-max{color:var(--sub);font-size:14px}
+  .bar{height:6px;background:#0a2238;border-radius:4px;overflow:hidden;margin-bottom:12px}
+  .bar i{display:block;height:100%;border-radius:4px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2))}
+  .quip{font-size:13.5px;color:var(--sub);line-height:1.45;font-style:italic}
+  .tap{margin-top:10px;font-size:11px;color:#4f7fa3;text-transform:uppercase;letter-spacing:1px}
+
+  /* Detail overlay */
+  .overlay{position:fixed;inset:0;background:rgba(3,14,25,.85);backdrop-filter:blur(6px);
+    display:none;overflow-y:auto;z-index:50;padding:30px 16px}
+  .overlay.open{display:block}
+  .detail{max-width:860px;margin:0 auto;background:linear-gradient(170deg,#0c3050,#07203a);
+    border:1px solid var(--line);border-radius:20px;padding:26px 24px 30px;position:relative}
+  .close{position:absolute;top:14px;right:16px;background:#123b5e;border:1px solid var(--line);
+    color:var(--txt);width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
+  .close:hover{background:var(--accent);color:#03202f}
+  .d-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:6px}
+  .d-name{font-size:26px;font-weight:800}
+  .d-score{background:#0a2a44;border:1px solid var(--line);border-radius:12px;
+    padding:6px 14px;font-weight:800;color:var(--accent);font-size:18px}
+  .d-meta{color:var(--sub);font-size:13px;margin-bottom:6px}
+  .d-quip{color:var(--accent2);font-style:italic;font-size:14px;margin-bottom:18px}
+
+  .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px}
+  .chart-box{background:#0a2a44;border:1px solid var(--line);border-radius:14px;padding:14px 10px 8px;text-align:center}
+  .chart-title{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:4px;
+    text-transform:uppercase;letter-spacing:1px}
+  .chart-avg{font-size:12px;color:var(--sub);margin-bottom:6px}
+  svg{width:100%;height:auto}
+  .axis-line{stroke:#1c4a6e;stroke-width:1}
+  .ring{fill:none;stroke:#153c5d;stroke-width:1}
+  .poly{fill:rgba(53,196,232,.25);stroke:var(--accent);stroke-width:2}
+  .dot{fill:var(--accent2)}
+  .lbl{fill:#a9cde4;font-size:10.5px}
+  .lbl-val{fill:#7be3c0;font-size:10px;font-weight:700}
+
+  .gaugewrap{display:flex;flex-direction:column;gap:14px;padding:14px 14px 18px}
+  .gauge-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+  .gauge-label b{color:var(--accent2)}
+  .gauge{height:12px;background:#08223a;border-radius:8px;overflow:hidden}
+  .gauge i{display:block;height:100%;border-radius:8px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2))}
+
+  .comment-box{background:#0a2a44;border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:12px;padding:16px 18px;line-height:1.65;font-size:14.5px}
+  .comment-title{font-weight:800;color:var(--accent);margin-bottom:6px;font-size:13px;
+    text-transform:uppercase;letter-spacing:1px}
+  .peer{margin-top:14px;background:#0a2a44;border:1px solid var(--line);border-left:4px solid var(--gold);
+    border-radius:12px;padding:12px 18px;font-size:13.5px;color:var(--sub)}
+  .peer b{color:var(--gold)}
+  footer{text-align:center;color:#3f6d92;font-size:12px;margin-top:44px}
+</style>
+</head>
+<body>
+<header>
+  <div class="club">Ocean Drop Pickleball Club</div>
+  <h1>Hồ sơ kỹ năng <span class="drop">thành viên</span></h1>
+  <div class="subtitle">Đánh giá 360° · Thang điểm 1–5 · Bấm vào thẻ để xem chi tiết</div>
+  <div class="wave"></div>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeDetail()">
+  <div class="detail" id="detail"></div>
+</div>
+
+<footer>© Ocean Drop · Tổng hợp từ phiếu Đánh giá 360°</footer>
+
+<script>
+const HARD = ["Serve","Return","Dink","Drive","Drop","Volley/Smash","Footwork"];
+const TACT = ["Đọc trận","Thích ứng","Phối hợp"];
+const MENT = ["Hạn chế lỗi","Bản lĩnh"];
+
+const MEMBERS = [
+ {name:"A Trọng", n:1,
+  s:{"Serve":4,"Return":5,"Dink":4,"Drive":3,"Drop":5,"Volley/Smash":5,"Footwork":5,"Đọc trận":5,"Thích ứng":4,"Phối hợp":5,"Hạn chế lỗi":4,"Bản lĩnh":5},
+  quip:"Toàn năng nhất club — có anh trong đội là yên tâm ra về có kem ăn.",
+  peer:null,
+  comment:"Đây đúng nghĩa là 'người bạn đôi trong mơ': Drop 5, Volley 5, Footwork 5, Phối hợp 5 — muốn chê cũng khó tìm chỗ. Đọc trận 5 điểm nghĩa là đứng cạnh anh Trọng thì cứ nghe hô là chạy, khỏi nghĩ nhiều. Bản lĩnh điểm số 5/5 nên cứ đến 9-9 là giao bóng đưa anh xử lý. Điểm duy nhất hơi non là Drive (3) — ghép với một tay drive khỏe kiểu A An hay A Hiếu là thành cặp 'búa và dao mổ' đáng sợ nhất club."},
+ {name:"A An", n:1,
+  s:{"Serve":5,"Return":4,"Dink":3,"Drive":5,"Drop":4,"Volley/Smash":5,"Footwork":5,"Đọc trận":4,"Thích ứng":4,"Phối hợp":4,"Hạn chế lỗi":4,"Bản lĩnh":5},
+  quip:"Hỏa lực hạng nặng: Serve 5, Drive 5, Smash 5. Đối thủ nghe tên là đau tay trước.",
+  peer:null,
+  comment:"Mẫu 'bang-bang player' chuẩn mực: Serve, Drive, Smash đều 5 — cứ có bóng bổng là coi như điểm về tay. Footwork 5 nên lên lưới rất nhanh, hợp đánh bên trái để ôm smash giữa sân. Chỗ cần bạn đôi bọc lót là Dink (3): khi trận đấu bị kéo vào thế dink rally dài, nên nhường phần bóng ngắn cho đồng đội và chờ thời cơ kết liễu. Ghép với người dink giỏi như A Đạt hay A Hùng là bài toán rất khó giải cho đối thủ."},
+ {name:"A Học", n:1,
+  s:{"Serve":5,"Return":4,"Dink":4,"Drive":4,"Drop":4,"Volley/Smash":4,"Footwork":5,"Đọc trận":4,"Thích ứng":4,"Phối hợp":4,"Hạn chế lỗi":4,"Bản lĩnh":4},
+  quip:"Đều như vắt tranh — không có điểm yếu để đối thủ khai thác.",
+  peer:null,
+  comment:"Bảng điểm phẳng lì toàn 4 với 5 — kiểu người chơi mà đối thủ nhìn mãi không biết đánh vào đâu. Serve 5 mở game rất lợi thế, Footwork 5 giúp cover sân cực rộng, bọc lót cho đồng đội thoải mái. Vì không có lỗ hổng nào, anh Học ghép với ai cũng chạy được: đứng cạnh tay công thì làm nền ổn định, đứng cạnh người mới thì làm chỗ dựa. Đúng chất 'chân gỗ quốc dân' — theo nghĩa ai cũng muốn được ghép cùng."},
+ {name:"A Hiếu", n:1,
+  s:{"Serve":5,"Return":4,"Dink":4,"Drive":5,"Drop":4,"Volley/Smash":5,"Footwork":4,"Đọc trận":3,"Thích ứng":3,"Phối hợp":4,"Hạn chế lỗi":3,"Bản lĩnh":5},
+  quip:"Càng căng càng hay — Bản lĩnh 5/5, deuce là lúc anh tỏa sáng.",
+  peer:null,
+  comment:"Vũ khí đầy mình: Serve 5, Drive 5, Smash 5 — thuộc nhóm hỏa lực mạnh nhất club, và đặc sản là Bản lĩnh 5/5: điểm càng quan trọng đánh càng tỉnh. Điều cần bạn đôi hỗ trợ là phần chiến thuật (Đọc trận 3, Thích ứng 3) và đôi lúc hưng phấn quá tự đánh hỏng (Hạn chế lỗi 3). Công thức lý tưởng: ghép với một 'bộ não' như A Tiến hay A Trọng — người đó chỉ đạo thế trận, anh Hiếu phụ trách khâu... dứt điểm không thương tiếc."},
+ {name:"A Tiến", n:1,
+  s:{"Serve":4,"Return":4,"Dink":4,"Drive":4,"Drop":4,"Volley/Smash":3,"Footwork":3,"Đọc trận":5,"Thích ứng":4,"Phối hợp":4,"Hạn chế lỗi":4,"Bản lĩnh":4},
+  quip:"Bộ não của mọi cặp đôi — đánh bằng đầu trước, bằng vợt sau.",
+  peer:null,
+  comment:"Đọc trận 5/5 — hiếm ai trong club nhìn ra ý đồ đối thủ nhanh như anh Tiến, chưa đánh đã biết bóng sẽ về đâu. Kỹ thuật nền đều 4, ít lỗi, tâm lý vững: mẫu người 'setup' cho đồng đội ăn điểm. Chân hơi chậm (Footwork 3) và volley chưa phải sở trường, nên hợp đứng bên phải, giữ nhịp dink và điều bóng, để bạn đôi có smash tốt càn quét ở giữa. Ghép với A An hoặc A Hiếu là mô hình 'quân sư + đao phủ' kinh điển."},
+ {name:"A Hiệp", n:1,
+  s:{"Serve":5,"Return":5,"Dink":3,"Drive":4,"Drop":4,"Volley/Smash":4,"Footwork":3,"Đọc trận":4,"Thích ứng":3,"Phối hợp":4,"Hạn chế lỗi":3,"Bản lĩnh":4},
+  quip:"Serve 5, Return 5 — hai cú đầu tiên của rally là sân khấu riêng của anh.",
+  peer:null,
+  comment:"Chuyên gia khai cuộc: Serve và Return đều 5/5, nghĩa là mỗi rally đội mình đều nhập cuộc với lợi thế. Đây là tài sản cực quý trong đánh đôi vì return sâu và chắc giúp cả đội lên lưới an toàn. Phần cần đồng đội gánh hộ là pha bóng kéo dài: Dink 3, Footwork 3 nên khi bị dí vào thế dink dai dẳng sẽ hơi đuối. Hợp ghép với người giỏi bóng ngắn (A Đạt, A Hùng, A Trọng) — anh Hiệp lo 2 cú đầu, bạn đôi lo phần 'cò cưa' còn lại."},
+ {name:"A Hùng", n:1,
+  s:{"Serve":3,"Return":4,"Dink":4,"Drive":3,"Drop":5,"Volley/Smash":5,"Footwork":4,"Đọc trận":3,"Thích ứng":3,"Phối hợp":3,"Hạn chế lỗi":4,"Bản lĩnh":4},
+  quip:"Trùm khu bếp — Drop 5, Volley 5. Đúng như lời đồn: 'Khó nhai'.",
+  peer:"A Học nhận xét: <b>“Khó nhai”</b>",
+  comment:"Vua vùng NVZ: Third Shot Drop 5 và Volley 5 — combo đắt giá nhất trong pickleball đôi, vì đội nào kiểm soát được khu bếp là đội đó thắng. Cú drop 5 điểm nghĩa là đội mình luôn có 'vé lên lưới' an toàn. Serve và Drive chỉ 3 nên đừng bắt anh Hùng đấu súng từ cuối sân — hãy để anh làm việc mình giỏi nhất: thả nhỏ, áp lưới, chặn volley. Ghép với tay công như A An là bài 'người mở khóa + người phá cửa' rất khó chịu."},
+ {name:"A Đạt", n:1,
+  s:{"Serve":4,"Return":4,"Dink":5,"Drive":3,"Drop":4,"Volley/Smash":4,"Footwork":4,"Đọc trận":3,"Thích ứng":2,"Phối hợp":4,"Hạn chế lỗi":3,"Bản lĩnh":3},
+  quip:"Dink 5/5 — bóng ngắn dẻo nhất club, kiên nhẫn như câu cá.",
+  peer:null,
+  comment:"Tay dink số một club (5/5) — vào thế đôi công bóng ngắn thì đối thủ chỉ có mỏi gối trước. Phối hợp đồng đội 4 điểm nên di chuyển song song, bọc lót đều rất ăn ý. Điểm cần lưu ý: Thích ứng chỉ 2 — khi bị đối thủ đổi bài (ví dụ chuyển sang lốp bóng hoặc tấn công thẳng người) thì hơi lúng túng, lúc đó rất cần bạn đôi lên tiếng điều chỉnh chiến thuật. Hợp ghép với người đọc trận tốt như A Tiến hay A Trọng để 'có người cầm lái', còn anh Đạt cứ yên tâm dink cho đối thủ phát điên."},
+ {name:"A Hoàng Anh", n:2,
+  s:{"Serve":4,"Return":3.5,"Dink":2,"Drive":4.5,"Drop":3,"Volley/Smash":2.5,"Footwork":3,"Đọc trận":3,"Thích ứng":2.5,"Phối hợp":2.5,"Hạn chế lỗi":3.5,"Bản lĩnh":4},
+  quip:"Già mà gân — Drive 4.5, cứ bóng nảy lên là nện hết ga.",
+  peer:"A Học nhận xét: <b>“Già mà gân”</b>",
+  comment:"Đúng chuẩn 'Già mà gân': Drive 4.5 là vũ khí chủ lực, đối thủ để bóng dài là lãnh đủ, cộng thêm Bản lĩnh 4 — điểm căng không run tay. Lối chơi hợp nhất là ôm cuối sân nện drive, để bạn đôi trấn giữ lưới, vì Dink (2) và Volley (2.5) chưa phải sở trường. Phối hợp 2.5 nên trước trận cần thống nhất rõ ai ăn bóng giữa để tránh 'nhìn nhau cười'. Ghép với người chắc lưới như A Hùng hay A Trọng thì mỗi cú drive của anh sẽ thành mồi ngon cho đồng đội dứt điểm."},
+ {name:"A Phong", n:1,
+  s:{"Serve":3,"Return":3,"Dink":4,"Drive":3,"Drop":4,"Volley/Smash":2,"Footwork":3,"Đọc trận":3,"Thích ứng":2,"Phối hợp":4,"Hạn chế lỗi":2,"Bản lĩnh":3},
+  quip:"Bóng ngắn khéo tay, đồng đội dễ chịu — chỉ cần bớt 'tự thua' là lên trình ngay.",
+  peer:null,
+  comment:"Điểm sáng rõ rệt: Dink 4, Drop 4 và Phối hợp 4 — nghĩa là kỹ năng 'xây trận' cho đánh đôi đã có nền tốt, đồng đội đứng cạnh rất dễ chịu vì bọc lót ổn. Thứ đang kìm chân là Hạn chế lỗi (2): nhiều điểm tự cho không đối thủ, và Smash (2) chưa đủ để tự kết liễu pha bóng. Chiến thuật đơn giản mà hiệu quả: cứ đánh chắc, thả nhỏ, kiên nhẫn — nhường phần dứt điểm cho bạn đôi. Ghép với tay smash như A An, A Hiếu thì anh Phong dọn cỗ, bạn đôi... ăn cỗ."}
+];
+
+MEMBERS.forEach(m=>{
+  const vals=Object.values(m.s);
+  m.total=+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2);
+  m.avg=g=>+(g.map(k=>m.s[k]).reduce((a,b)=>a+b,0)/g.length).toFixed(1);
+});
+MEMBERS.sort((a,b)=>b.total-a.total);
+
+const grid=document.getElementById('grid');
+MEMBERS.forEach((m,i)=>{
+  const c=document.createElement('div');
+  c.className='card';
+  c.innerHTML=`
+    ${i===0?'<div class="badge">🏆 Top phong độ</div>':`<div class="rank">#${i+1}</div>`}
+    <div class="name">${m.name}</div>
+    <div class="score-row"><span class="score">${m.total.toFixed(2)}</span><span class="score-max">/ 5</span></div>
+    <div class="bar"><i style="width:${m.total/5*100}%"></i></div>
+    <div class="quip">“${m.quip}”</div>
+    <div class="tap">Xem hồ sơ ▸</div>`;
+  c.onclick=()=>openDetail(m,i);
+  grid.appendChild(c);
+});
+
+function radarSVG(keys, scores, size){
+  const cx=size/2, cy=size/2+6, R=size/2-46, n=keys.length;
+  const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+r*Math.cos(a),cy+r*Math.sin(a)]};
+  let s=`<svg viewBox="0 0 ${size} ${size+10}">`;
+  for(let ring=1;ring<=5;ring++){
+    const pts=keys.map((_,i)=>pt(i,R*ring/5).join(',')).join(' ');
+    s+=`<polygon class="ring" points="${pts}"/>`;
+  }
+  keys.forEach((_,i)=>{const [x,y]=pt(i,R);s+=`<line class="axis-line" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/>`});
+  const poly=keys.map((k,i)=>pt(i,R*scores[k]/5).join(',')).join(' ');
+  s+=`<polygon class="poly" points="${poly}"/>`;
+  keys.forEach((k,i)=>{
+    const [dx,dy]=pt(i,R*scores[k]/5);
+    s+=`<circle class="dot" cx="${dx}" cy="${dy}" r="3.5"/>`;
+    const [lx,ly]=pt(i,R+22);
+    const anchor=Math.abs(lx-cx)<10?'middle':(lx>cx?'start':'end');
+    s+=`<text class="lbl" x="${lx}" y="${ly}" text-anchor="${anchor}">${k}</text>`;
+    s+=`<text class="lbl-val" x="${lx}" y="${ly+12}" text-anchor="${anchor}">${scores[k]}</text>`;
+  });
+  return s+'</svg>';
+}
+
+function gaugeHTML(keys, scores){
+  return `<div class="gaugewrap">`+keys.map(k=>`
+    <div>
+      <div class="gauge-label"><span>${k}</span><b>${scores[k]} / 5</b></div>
+      <div class="gauge"><i style="width:${scores[k]/5*100}%"></i></div>
+    </div>`).join('')+`</div>`;
+}
+
+function openDetail(m,i){
+  const d=document.getElementById('detail');
+  d.innerHTML=`
+    <button class="close" onclick="closeDetail()">✕</button>
+    <div class="d-head">
+      <div class="d-name">${i===0?'🏆 ':''}${m.name}</div>
+      <div class="d-score">${m.total.toFixed(2)} / 5</div>
+    </div>
+    <div class="d-meta">Xếp hạng #${i+1} · Tổng hợp từ ${m.n} lượt đánh giá</div>
+    <div class="d-quip">“${m.quip}”</div>
+    <div class="charts">
+      <div class="chart-box">
+        <div class="chart-title">Kỹ năng cứng</div>
+        <div class="chart-avg">Trung bình: ${m.avg(HARD)} / 5</div>
+        ${radarSVG(HARD,m.s,290)}
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">Chiến thuật</div>
+        <div class="chart-avg">Trung bình: ${m.avg(TACT)} / 5</div>
+        ${radarSVG(TACT,m.s,290)}
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">Ổn định & Tâm lý</div>
+        <div class="chart-avg">Trung bình: ${m.avg(MENT)} / 5</div>
+        ${gaugeHTML(MENT,m.s)}
+      </div>
+    </div>
+    <div class="comment-box">
+      <div class="comment-title">🎾 Nhận xét thi đấu đôi</div>
+      ${m.comment}
+    </div>
+    ${m.peer?`<div class="peer">💬 ${m.peer}</div>`:''}
+  `;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDetail(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail()});
+</script>
+</body>
+</html>
