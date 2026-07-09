@@ -88,7 +88,7 @@
   .comment-title{font-weight:800;color:var(--accent);margin-bottom:6px;font-size:13px;
     text-transform:uppercase;letter-spacing:1px}
   .peer{margin-top:14px;background:#0a2a44;border:1px solid var(--line);border-left:4px solid var(--gold);
-    border-radius:12px;padding:12px 18px;font-size:13.5px;color:var(--sub);line-height:1.6}
+    border-radius:12px;padding:12px 18px;font-size:13.5px;color:var(--sub)}
   .peer b{color:var(--gold)}
   footer{text-align:center;color:#3f6d92;font-size:12px;margin-top:44px}
 </style>
@@ -107,7 +107,7 @@
   <div class="detail" id="detail"></div>
 </div>
 
-<footer>© Ocean Drop · Tổng hợp từ 22 phiếu Đánh giá 360°</footer>
+<footer>© Ocean Drop · Tổng hợp từ phiếu Đánh giá 360°</footer>
 
 <script>
 const HARD = ["Serve","Return","Dink","Drive","Drop","Volley/Smash","Footwork"];
@@ -115,61 +115,56 @@ const TACT = ["Đọc trận","Thích ứng","Phối hợp"];
 const MENT = ["Hạn chế lỗi","Bản lĩnh"];
 
 const MEMBERS = [
- {name:"A Trọng", n:2,
-  s:{"Serve":4,"Return":4.5,"Dink":4,"Drive":3.5,"Drop":5,"Volley/Smash":4.5,"Footwork":5,"Đọc trận":5,"Thích ứng":4,"Phối hợp":5,"Hạn chế lỗi":4.5,"Bản lĩnh":4.5},
+ {name:"A Trọng", n:1,
+  s:{"Serve":4,"Return":5,"Dink":4,"Drive":3,"Drop":5,"Volley/Smash":5,"Footwork":5,"Đọc trận":5,"Thích ứng":4,"Phối hợp":5,"Hạn chế lỗi":4,"Bản lĩnh":5},
   quip:"Toàn năng nhất club — có anh trong đội là yên tâm ra về có kem ăn.",
   peer:null,
-  comment:"Vẫn là 'người bạn đôi trong mơ' của club: Drop 5, Footwork 5, Đọc trận 5, Phối hợp 5 — bốn chỉ số quan trọng nhất của pickleball đôi đều max. Đứng cạnh anh Trọng thì cứ nghe hô là chạy, khỏi nghĩ nhiều, kiểu gì cũng có người bọc lót sau lưng. Hạn chế lỗi 4.5 nên gần như không cho không đối thủ điểm nào. Chỗ duy nhất hơi non là Drive (3.5) — ghép với một tay drive khỏe kiểu A An hay A Hiếu là thành cặp 'búa và dao mổ' đáng sợ nhất club."},
- {name:"A An", n:2,
-  s:{"Serve":5,"Return":4,"Dink":3.5,"Drive":5,"Drop":4,"Volley/Smash":5,"Footwork":5,"Đọc trận":4.5,"Thích ứng":4,"Phối hợp":4,"Hạn chế lỗi":4.5,"Bản lĩnh":5},
-  quip:"Hỏa lực hạng nặng mà đầu vẫn lạnh — Serve 5, Smash 5, Bản lĩnh 5.",
+  comment:"Đây đúng nghĩa là 'người bạn đôi trong mơ': Drop 5, Volley 5, Footwork 5, Phối hợp 5 — muốn chê cũng khó tìm chỗ. Đọc trận 5 điểm nghĩa là đứng cạnh anh Trọng thì cứ nghe hô là chạy, khỏi nghĩ nhiều. Bản lĩnh điểm số 5/5 nên cứ đến 9-9 là giao bóng đưa anh xử lý. Điểm duy nhất hơi non là Drive (3) — ghép với một tay drive khỏe kiểu A An hay A Hiếu là thành cặp 'búa và dao mổ' đáng sợ nhất club."},
+ {name:"A An", n:1,
+  s:{"Serve":5,"Return":4,"Dink":3,"Drive":5,"Drop":4,"Volley/Smash":5,"Footwork":5,"Đọc trận":4,"Thích ứng":4,"Phối hợp":4,"Hạn chế lỗi":4,"Bản lĩnh":5},
+  quip:"Hỏa lực hạng nặng: Serve 5, Drive 5, Smash 5. Đối thủ nghe tên là đau tay trước.",
   peer:null,
-  comment:"Bảng điểm mới cho thấy anh An không chỉ là 'bang-bang player' nữa: Đọc trận lên 4.5, Hạn chế lỗi 4.5 — tức là nện mạnh nhưng nện có tính toán, cực kỳ nguy hiểm. Serve, Drive, Smash, Footwork đều 5, hợp ôm bên trái để càn quét bóng giữa sân. Điểm cần bạn đôi san sẻ vẫn là Dink (3.5): khi trận bị kéo vào thế cò cưa bóng ngắn thì nên nhường phần đó cho đồng đội và rình bóng bổng. Ghép với A Đạt hay A Hùng — hai tay dink dẻo — là bài toán rất khó giải."},
- {name:"A Học", n:2,
-  s:{"Serve":4.5,"Return":4,"Dink":4,"Drive":4,"Drop":4,"Volley/Smash":4,"Footwork":4.5,"Đọc trận":4.5,"Thích ứng":4.5,"Phối hợp":4.5,"Hạn chế lỗi":4,"Bản lĩnh":4},
-  quip:"Đều như vắt tranh, giờ thêm cả mưu — chiến thuật toàn 4.5.",
+  comment:"Mẫu 'bang-bang player' chuẩn mực: Serve, Drive, Smash đều 5 — cứ có bóng bổng là coi như điểm về tay. Footwork 5 nên lên lưới rất nhanh, hợp đánh bên trái để ôm smash giữa sân. Chỗ cần bạn đôi bọc lót là Dink (3): khi trận đấu bị kéo vào thế dink rally dài, nên nhường phần bóng ngắn cho đồng đội và chờ thời cơ kết liễu. Ghép với người dink giỏi như A Đạt hay A Hùng là bài toán rất khó giải cho đối thủ."},
+ {name:"A Học", n:1,
+  s:{"Serve":5,"Return":4,"Dink":4,"Drive":4,"Drop":4,"Volley/Smash":4,"Footwork":5,"Đọc trận":4,"Thích ứng":4,"Phối hợp":4,"Hạn chế lỗi":4,"Bản lĩnh":4},
+  quip:"Đều như vắt tranh — không có điểm yếu để đối thủ khai thác.",
   peer:null,
-  comment:"Điểm đánh giá mới hé lộ vũ khí thật của anh Học: cả ba chỉ số chiến thuật đều 4.5 (Đọc trận, Thích ứng, Phối hợp) — không chỉ là 'chân gỗ quốc dân' nữa mà là người biết cầm nhịp trận đấu. Kỹ thuật nền vẫn phẳng lì 4–4.5, không có lỗ hổng nào cho đối thủ khai thác. Kiểu người chơi này ghép với ai cũng chạy: cạnh tay công thì làm quân sư kiêm hậu phương, cạnh người mới thì làm chỗ dựa. Đối thủ gặp cặp có anh Học là xác định phải thắng bằng thực lực, không có cửa 'câu lỗi'."},
- {name:"A Hiếu", n:2,
-  s:{"Serve":5,"Return":4.5,"Dink":4.5,"Drive":5,"Drop":4.5,"Volley/Smash":5,"Footwork":4.5,"Đọc trận":3.5,"Thích ứng":3,"Phối hợp":3,"Hạn chế lỗi":3.5,"Bản lĩnh":4.5},
-  quip:"Kỹ năng cứng khủng nhất club — 7 cú quả không cú nào dưới 4.5.",
+  comment:"Bảng điểm phẳng lì toàn 4 với 5 — kiểu người chơi mà đối thủ nhìn mãi không biết đánh vào đâu. Serve 5 mở game rất lợi thế, Footwork 5 giúp cover sân cực rộng, bọc lót cho đồng đội thoải mái. Vì không có lỗ hổng nào, anh Học ghép với ai cũng chạy được: đứng cạnh tay công thì làm nền ổn định, đứng cạnh người mới thì làm chỗ dựa. Đúng chất 'chân gỗ quốc dân' — theo nghĩa ai cũng muốn được ghép cùng."},
+ {name:"A Hiếu", n:1,
+  s:{"Serve":5,"Return":4,"Dink":4,"Drive":5,"Drop":4,"Volley/Smash":5,"Footwork":4,"Đọc trận":3,"Thích ứng":3,"Phối hợp":4,"Hạn chế lỗi":3,"Bản lĩnh":5},
+  quip:"Càng căng càng hay — Bản lĩnh 5/5, deuce là lúc anh tỏa sáng.",
   peer:null,
-  comment:"Nhìn radar kỹ năng cứng của anh Hiếu mà choáng: cả 7 tiêu chí không có cái nào dưới 4.5 — hỏa lực và độ toàn diện về cú quả số một club, giờ cả Dink cũng lên 4.5 rồi. Bản lĩnh 4.5 nên điểm càng căng đánh càng tỉnh. Nhưng bảng điểm cũng chỉ đúng chỗ cần bạn đôi gánh: Thích ứng 3 và Phối hợp 3 — đôi lúc mải đánh hay mà quên mất người đứng cạnh, dễ giẫm chân nhau ở bóng giữa. Công thức lý tưởng: ghép với 'bộ não' như A Trọng hay A Học, người đó phân vai rõ ràng, còn anh Hiếu chỉ việc làm điều mình giỏi nhất — dứt điểm không thương tiếc."},
- {name:"A Hiệp", n:2,
-  s:{"Serve":5,"Return":5,"Dink":3.5,"Drive":4.5,"Drop":4,"Volley/Smash":4,"Footwork":3.5,"Đọc trận":4,"Thích ứng":3.5,"Phối hợp":4,"Hạn chế lỗi":3.5,"Bản lĩnh":4},
-  quip:"Serve 5, Return 5 — hai cú đầu tiên của rally là sân khấu riêng của anh.",
-  peer:null,
-  comment:"Chuyên gia khai cuộc: Serve và Return đều 5/5, nghĩa là mỗi rally đội mình đều nhập cuộc với lợi thế — tài sản cực quý trong đánh đôi vì return sâu và chắc giúp cả đội lên lưới an toàn. Drive 4.5 nên bóng dài cũng rất đáng gờm. Phần cần đồng đội gánh hộ là pha bóng kéo dài: Dink 3.5, Footwork 3.5 — khi bị dí vào thế dink dai dẳng sẽ hơi đuối. Hợp ghép với người giỏi bóng ngắn (A Đạt, A Hùng, A Trọng): anh Hiệp lo 2 cú đầu thật nặng, bạn đôi lo phần 'cò cưa' còn lại."},
+  comment:"Vũ khí đầy mình: Serve 5, Drive 5, Smash 5 — thuộc nhóm hỏa lực mạnh nhất club, và đặc sản là Bản lĩnh 5/5: điểm càng quan trọng đánh càng tỉnh. Điều cần bạn đôi hỗ trợ là phần chiến thuật (Đọc trận 3, Thích ứng 3) và đôi lúc hưng phấn quá tự đánh hỏng (Hạn chế lỗi 3). Công thức lý tưởng: ghép với một 'bộ não' như A Tiến hay A Trọng — người đó chỉ đạo thế trận, anh Hiếu phụ trách khâu... dứt điểm không thương tiếc."},
  {name:"A Tiến", n:1,
   s:{"Serve":4,"Return":4,"Dink":4,"Drive":4,"Drop":4,"Volley/Smash":3,"Footwork":3,"Đọc trận":5,"Thích ứng":4,"Phối hợp":4,"Hạn chế lỗi":4,"Bản lĩnh":4},
   quip:"Bộ não của mọi cặp đôi — đánh bằng đầu trước, bằng vợt sau.",
   peer:null,
   comment:"Đọc trận 5/5 — hiếm ai trong club nhìn ra ý đồ đối thủ nhanh như anh Tiến, chưa đánh đã biết bóng sẽ về đâu. Kỹ thuật nền đều 4, ít lỗi, tâm lý vững: mẫu người 'setup' cho đồng đội ăn điểm. Chân hơi chậm (Footwork 3) và volley chưa phải sở trường, nên hợp đứng bên phải, giữ nhịp dink và điều bóng, để bạn đôi có smash tốt càn quét ở giữa. Ghép với A An hoặc A Hiếu là mô hình 'quân sư + đao phủ' kinh điển."},
- {name:"A Hùng", n:2,
-  s:{"Serve":3,"Return":3.5,"Dink":4,"Drive":3,"Drop":4.5,"Volley/Smash":4,"Footwork":4,"Đọc trận":3.5,"Thích ứng":3.5,"Phối hợp":3.5,"Hạn chế lỗi":4,"Bản lĩnh":4},
-  quip:"Tường thành khu bếp — thả nhỏ hay, phòng thủ lì. Đúng như lời đồn: 'Khó nhai'.",
-  peer:"A Học nhận xét: <b>“Khó nhai”</b><br>A Tiến nhận xét: <b>“Phòng thủ tốt, yếu cú giao bóng và trả giao bóng. Không điều chỉnh được hướng bóng theo mong muốn.”</b>",
-  comment:"Chuyên gia vùng NVZ: Third Shot Drop 4.5 là cú đắt giá nhất trong pickleball đôi — có anh Hùng là cả đội luôn có 'vé lên lưới' an toàn, cộng thêm khả năng phòng thủ lì lợm khiến đối thủ đánh mãi không thủng. Điểm yếu lộ rõ ở hai cú khai cuộc: Serve 3, Return 3.5, và như anh Tiến góp ý, việc điều hướng bóng theo ý muốn còn hạn chế. Chiến thuật hợp lý: giao bóng an toàn vào giữa sân, tránh phiêu lưu, rồi nhanh chóng đưa trận về thế bóng ngắn sở trường. Ghép với tay khai cuộc mạnh như A Hiệp là bù trừ hoàn hảo — người mở màn, người khóa sổ."},
- {name:"A Tuấn", n:2,
-  s:{"Serve":4,"Return":4,"Dink":2.5,"Drive":3.5,"Drop":3.5,"Volley/Smash":4,"Footwork":3.5,"Đọc trận":4,"Thích ứng":3.5,"Phối hợp":4,"Hạn chế lỗi":3.5,"Bản lĩnh":4.5},
-  quip:"Tân binh máu lạnh — Bản lĩnh 4.5, điểm căng cứ đưa anh xử.",
+ {name:"A Hiệp", n:1,
+  s:{"Serve":5,"Return":5,"Dink":3,"Drive":4,"Drop":4,"Volley/Smash":4,"Footwork":3,"Đọc trận":4,"Thích ứng":3,"Phối hợp":4,"Hạn chế lỗi":3,"Bản lĩnh":4},
+  quip:"Serve 5, Return 5 — hai cú đầu tiên của rally là sân khấu riêng của anh.",
   peer:null,
-  comment:"Gương mặt mới trên bảng điểm nhưng hồ sơ rất thú vị: Bản lĩnh 4.5 — thuộc nhóm lì đòn nhất club, cộng Đọc trận 4 và Phối hợp 4, tức là tư duy đánh đôi đã sẵn, đồng đội đứng cạnh yên tâm. Serve, Return, Smash đều 4 nên khai cuộc và kết liễu đều ổn. Điểm cần cải thiện rõ nhất là Dink (2.5) — bị kéo vào thế bóng ngắn dài hơi là dễ nóng vội đánh sớm. Trước mắt hợp ghép với tay dink giỏi như A Đạt hay A Trọng để được 'che chắn' khu bếp, còn anh Tuấn phụ trách những pha bóng lớn ở thời khắc quyết định."},
- {name:"A Đạt", n:2,
-  s:{"Serve":4,"Return":4,"Dink":4.5,"Drive":3.5,"Drop":4,"Volley/Smash":3.5,"Footwork":3.5,"Đọc trận":3,"Thích ứng":2.5,"Phối hợp":3.5,"Hạn chế lỗi":3.5,"Bản lĩnh":3},
-  quip:"Dink 4.5 — bóng ngắn dẻo nhất club, kiên nhẫn như câu cá.",
-  peer:"Góp ý từ anh em: <b>“Các kỹ năng ổn định. Cải thiện nhịp đánh với Partner nên cần Partner có lối đánh phù hợp.”</b>",
-  comment:"Tay dink hàng đầu club (4.5) — vào thế đôi công bóng ngắn thì đối thủ chỉ có mỏi gối trước, các kỹ năng nền cũng đều và ổn định. Đúng như góp ý của anh em: anh Đạt là mẫu người chơi 'kén partner' — cần bạn đôi có lối đánh ăn nhịp, vì Thích ứng chỉ 2.5, khi bị đối thủ đổi bài giữa trận thì hơi lúng túng và rất cần người bên cạnh lên tiếng điều chỉnh. Hợp nhất là ghép với người đọc trận tốt như A Tiến, A Trọng hay A Học để 'có người cầm lái', còn anh Đạt cứ yên tâm dink cho đối thủ phát điên."},
- {name:"A Hoàng Anh", n:3,
-  s:{"Serve":4,"Return":3.33,"Dink":2.33,"Drive":4.67,"Drop":3,"Volley/Smash":2.67,"Footwork":3,"Đọc trận":3,"Thích ứng":2.67,"Phối hợp":2.67,"Hạn chế lỗi":3.67,"Bản lĩnh":4},
-  quip:"Già mà gân — Drive 4.67, cứ bóng nảy lên là nện hết ga.",
-  peer:"A Học nhận xét: <b>“Già mà gân”</b><br>A Tiến nhận xét: <b>“Phong độ không ổn định. Có trận đánh hay có trận đánh rất dở.”</b>",
-  comment:"Đúng chuẩn 'Già mà gân': Drive 4.67 là vũ khí chủ lực — cao gần nhất club, đối thủ để bóng dài là lãnh đủ, cộng Bản lĩnh 4 nên điểm căng không run tay. Nhưng như anh Tiến nhận xét, phong độ trồi sụt: trận hay thì gánh cả đội, trận dở thì... đồng đội gánh lại. Lối chơi hợp nhất là ôm cuối sân nện drive, để bạn đôi trấn giữ lưới, vì Dink (2.33) và Volley (2.67) chưa phải sở trường. Phối hợp 2.67 nên trước trận cần thống nhất rõ ai ăn bóng giữa để tránh 'nhìn nhau cười'. Ghép với người chắc lưới và ổn định như A Trọng hay A Học là phương án an toàn nhất."},
- {name:"A Phong", n:2,
-  s:{"Serve":3.5,"Return":3.5,"Dink":3.5,"Drive":3,"Drop":3.5,"Volley/Smash":2.5,"Footwork":3,"Đọc trận":3,"Thích ứng":2.5,"Phối hợp":3.5,"Hạn chế lỗi":2.5,"Bản lĩnh":3},
-  quip:"Chơi đều tay, đồng đội dễ chịu — chỉ cần bớt 'tự thua' là lên trình ngay.",
+  comment:"Chuyên gia khai cuộc: Serve và Return đều 5/5, nghĩa là mỗi rally đội mình đều nhập cuộc với lợi thế. Đây là tài sản cực quý trong đánh đôi vì return sâu và chắc giúp cả đội lên lưới an toàn. Phần cần đồng đội gánh hộ là pha bóng kéo dài: Dink 3, Footwork 3 nên khi bị dí vào thế dink dai dẳng sẽ hơi đuối. Hợp ghép với người giỏi bóng ngắn (A Đạt, A Hùng, A Trọng) — anh Hiệp lo 2 cú đầu, bạn đôi lo phần 'cò cưa' còn lại."},
+ {name:"A Hùng", n:1,
+  s:{"Serve":3,"Return":4,"Dink":4,"Drive":3,"Drop":5,"Volley/Smash":5,"Footwork":4,"Đọc trận":3,"Thích ứng":3,"Phối hợp":3,"Hạn chế lỗi":4,"Bản lĩnh":4},
+  quip:"Trùm khu bếp — Drop 5, Volley 5. Đúng như lời đồn: 'Khó nhai'.",
+  peer:"A Học nhận xét: <b>“Khó nhai”</b>",
+  comment:"Vua vùng NVZ: Third Shot Drop 5 và Volley 5 — combo đắt giá nhất trong pickleball đôi, vì đội nào kiểm soát được khu bếp là đội đó thắng. Cú drop 5 điểm nghĩa là đội mình luôn có 'vé lên lưới' an toàn. Serve và Drive chỉ 3 nên đừng bắt anh Hùng đấu súng từ cuối sân — hãy để anh làm việc mình giỏi nhất: thả nhỏ, áp lưới, chặn volley. Ghép với tay công như A An là bài 'người mở khóa + người phá cửa' rất khó chịu."},
+ {name:"A Đạt", n:1,
+  s:{"Serve":4,"Return":4,"Dink":5,"Drive":3,"Drop":4,"Volley/Smash":4,"Footwork":4,"Đọc trận":3,"Thích ứng":2,"Phối hợp":4,"Hạn chế lỗi":3,"Bản lĩnh":3},
+  quip:"Dink 5/5 — bóng ngắn dẻo nhất club, kiên nhẫn như câu cá.",
   peer:null,
-  comment:"Hồ sơ khá cân bằng: hầu hết kỹ năng ở mức 3–3.5, Phối hợp 3.5 nên đứng cạnh rất dễ chịu, bọc lót có ý thức — nền tảng đánh đôi đã có. Hai thứ đang kìm chân: Hạn chế lỗi (2.5) — nhiều điểm tự cho không đối thủ, và Smash (2.5) — chưa đủ để tự kết liễu pha bóng. Chiến thuật đơn giản mà hiệu quả: cứ đánh chắc, thả nhỏ, kiên nhẫn kéo dài rally, nhường phần dứt điểm cho bạn đôi. Ghép với tay smash như A An, A Hiếu thì anh Phong dọn cỗ, bạn đôi... ăn cỗ. Giảm được lỗi tự hỏng là thứ hạng nhảy vọt ngay."}
+  comment:"Tay dink số một club (5/5) — vào thế đôi công bóng ngắn thì đối thủ chỉ có mỏi gối trước. Phối hợp đồng đội 4 điểm nên di chuyển song song, bọc lót đều rất ăn ý. Điểm cần lưu ý: Thích ứng chỉ 2 — khi bị đối thủ đổi bài (ví dụ chuyển sang lốp bóng hoặc tấn công thẳng người) thì hơi lúng túng, lúc đó rất cần bạn đôi lên tiếng điều chỉnh chiến thuật. Hợp ghép với người đọc trận tốt như A Tiến hay A Trọng để 'có người cầm lái', còn anh Đạt cứ yên tâm dink cho đối thủ phát điên."},
+ {name:"A Hoàng Anh", n:2,
+  s:{"Serve":4,"Return":3.5,"Dink":2,"Drive":4.5,"Drop":3,"Volley/Smash":2.5,"Footwork":3,"Đọc trận":3,"Thích ứng":2.5,"Phối hợp":2.5,"Hạn chế lỗi":3.5,"Bản lĩnh":4},
+  quip:"Già mà gân — Drive 4.5, cứ bóng nảy lên là nện hết ga.",
+  peer:"A Học nhận xét: <b>“Già mà gân”</b>",
+  comment:"Đúng chuẩn 'Già mà gân': Drive 4.5 là vũ khí chủ lực, đối thủ để bóng dài là lãnh đủ, cộng thêm Bản lĩnh 4 — điểm căng không run tay. Lối chơi hợp nhất là ôm cuối sân nện drive, để bạn đôi trấn giữ lưới, vì Dink (2) và Volley (2.5) chưa phải sở trường. Phối hợp 2.5 nên trước trận cần thống nhất rõ ai ăn bóng giữa để tránh 'nhìn nhau cười'. Ghép với người chắc lưới như A Hùng hay A Trọng thì mỗi cú drive của anh sẽ thành mồi ngon cho đồng đội dứt điểm."},
+ {name:"A Phong", n:1,
+  s:{"Serve":3,"Return":3,"Dink":4,"Drive":3,"Drop":4,"Volley/Smash":2,"Footwork":3,"Đọc trận":3,"Thích ứng":2,"Phối hợp":4,"Hạn chế lỗi":2,"Bản lĩnh":3},
+  quip:"Bóng ngắn khéo tay, đồng đội dễ chịu — chỉ cần bớt 'tự thua' là lên trình ngay.",
+  peer:null,
+  comment:"Điểm sáng rõ rệt: Dink 4, Drop 4 và Phối hợp 4 — nghĩa là kỹ năng 'xây trận' cho đánh đôi đã có nền tốt, đồng đội đứng cạnh rất dễ chịu vì bọc lót ổn. Thứ đang kìm chân là Hạn chế lỗi (2): nhiều điểm tự cho không đối thủ, và Smash (2) chưa đủ để tự kết liễu pha bóng. Chiến thuật đơn giản mà hiệu quả: cứ đánh chắc, thả nhỏ, kiên nhẫn — nhường phần dứt điểm cho bạn đôi. Ghép với tay smash như A An, A Hiếu thì anh Phong dọn cỗ, bạn đôi... ăn cỗ."}
 ];
 
 MEMBERS.forEach(m=>{
